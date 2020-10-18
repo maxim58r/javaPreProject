@@ -1,8 +1,10 @@
-CREATE TABLE `users_db`.`users` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXIST `users_db`.`users` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `lastName` VARCHAR(45) NOT NULL,
   `age` INT(3) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
+INSERT INTO `users_db`.`users` (`name`, `lastName`, `age`) VALUES ('max', 'serov', '38');
