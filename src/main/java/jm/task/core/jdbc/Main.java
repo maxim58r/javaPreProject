@@ -1,7 +1,11 @@
 package jm.task.core.jdbc;
 
+import jm.task.core.jdbc.util.DbConnection;
+
 public class Main {
-    public static void main(String[] args) {
-        // реализуйте алгоритм здесь
+    public static void main(String[] args) throws Exception {
+       try (DbConnection dbConnection = new DbConnection()){
+           System.out.println(dbConnection.getMetaData());
+       }
     }
 }
