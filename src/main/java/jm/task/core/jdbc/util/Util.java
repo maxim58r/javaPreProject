@@ -6,7 +6,6 @@ import java.sql.SQLException;
 
 public class Util {
     private static final String DB_NAME = "my_db";
-//    private static final String DB_NAME = "my_db";
 
     public static Connection getConnection() throws SQLException {
         try {

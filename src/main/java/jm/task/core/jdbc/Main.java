@@ -2,10 +2,12 @@ package jm.task.core.jdbc;
 
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.util.HibernateUtil;
+import org.hibernate.SessionFactory;
 
 public class Main {
     public static void main(String[] args) {
-        UserDaoJDBCImpl daoJDBC = new UserDaoJDBCImpl();
+       /* UserDaoJDBCImpl daoJDBC = new UserDaoJDBCImpl();
         daoJDBC.dropUsersTable();
         daoJDBC.createUsersTable();
         daoJDBC.saveUser("Max", "Suhov", Byte.parseByte("38"));
@@ -17,6 +19,8 @@ public class Main {
                 .map(User::toString)
                 .forEach(System.out::println);
         daoJDBC.cleanUsersTable();
-        daoJDBC.dropUsersTable();
+        daoJDBC.dropUsersTable();*/
+
+        SessionFactory factory = HibernateUtil.getSessionFactory();
     }
 }
