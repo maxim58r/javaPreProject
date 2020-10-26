@@ -1,6 +1,9 @@
 package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.util.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -21,7 +24,24 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
+        Transaction transaction = null;
+        User user;
+        // auto close session object
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
+            // start the transaction
+            transaction = session.beginTransaction();
+
+            // save student object
+            session.save(new User());
+
+            // commit transction
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
     }
 
     @Override
