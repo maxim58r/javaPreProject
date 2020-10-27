@@ -23,7 +23,7 @@ public class UserDaoJDBCImpl implements UserDao {
     final private String SAVE_USER = String.format("INSERT INTO %s (name, lastName, age) VALUES ((?), (?), (?));", table);
     final private String DELETE_USER = String.format("DELETE FROM %s WHERE id = (?);", table);
     final private String GET_USER = String.format("SELECT u.id, u.name, u.lastName, u.age FROM %s AS u ;", table);
-    final private String CLEAN_USERS_FROM_TABLE = String.format("DELETE FROM %s ;", table);
+    final private String CLEAN_USERS_FROM_TABLE = String.format("DELETE FROM %s;", table);
 
     public UserDaoJDBCImpl() {
 
