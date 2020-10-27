@@ -12,13 +12,17 @@ public class HibernateUtil {
     static {
         Configuration configuration = new Configuration();
         Properties properties = new Properties();
-        properties.setProperty("hibernate.driver_class", "com.mysql.cj.jdbc.Driver");
-        properties.setProperty("hibernate.url", "jdbc:mysql://localhost:3306/my_db?useUnicode=true&amp;serverTimezone=Europe/Moscow&amp;useSSL=false");
-        properties.setProperty("hibernate.username", "max");
-        properties.setProperty("hibernate.password", "serov");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        properties.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
+        properties.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/my_db?serverTimezone=Europe/Moscow");
+        properties.setProperty("hibernate.connection.username", "max");
+        properties.setProperty("hibernate.connection.password", "serov");
+        properties.setProperty("hibernate.connection.show_sql", "true");
+        properties.setProperty("hibernate.connection.pool_size", "2");
+        properties.setProperty("hibernate.connection.autocommit", "false");
+        properties.setProperty("hibernate.cache.use_query_cache", "false");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
         properties.setProperty("hibernate.show_sql", "true");
-        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+        properties.setProperty("hibernate.current_session_context_class", "thread");
 
         try {
             configuration.setProperties(properties);
