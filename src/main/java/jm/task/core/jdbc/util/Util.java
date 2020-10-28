@@ -13,6 +13,12 @@ public class Util {
     private static final String DB_NAME = "my_db";
     private static final String USERNAME = "max";
     private static final String PASSWORD = "serov";
+    private static final String HBM2DDL = "create-drop";
+//    private static final String HBM2DDL = "update";
+//    private static final String HBM2DDL = "drop";
+//    private static final String HBM2DDL = "validate ";
+//    private static final String HBM2DDL = "none ";
+
 
     public static Connection getConnection() {
         Connection connection = null;
@@ -36,13 +42,14 @@ public class Util {
             properties.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/my_db?serverTimezone=Europe/Moscow");
             properties.setProperty("hibernate.connection.username", USERNAME);
             properties.setProperty("hibernate.connection.password", PASSWORD);
-            properties.setProperty("hibernate.connection.show_sql", "true");
-            properties.setProperty("hibernate.connection.pool_size", "2");
-            properties.setProperty("hibernate.connection.autocommit", "false");
-            properties.setProperty("hibernate.cache.use_query_cache", "false");
             properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
             properties.setProperty("hibernate.show_sql", "true");
-            properties.setProperty("hibernate.current_session_context_class", "thread");
+            properties.setProperty("hibernate.hbm2ddl.auto", HBM2DDL);
+//            properties.setProperty("hibernate.connection.show_sql", "true");
+//            properties.setProperty("hibernate.connection.pool_size", "2");
+//            properties.setProperty("hibernate.connection.autocommit", "false");
+//            properties.setProperty("hibernate.cache.use_query_cache", "false");
+//            properties.setProperty("hibernate.current_session_context_class", "thread");
 
             try {
                 configuration.setProperties(properties);

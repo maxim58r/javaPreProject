@@ -4,17 +4,18 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "my_users")
+@Table(name = "User")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 50)
     private String name;
 
     @Column(length = 50)
+//    @Transient
     private String lastName;
 
     @Column(length = 3)

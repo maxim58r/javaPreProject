@@ -6,13 +6,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-//import org.hibernate.SQLQuery;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
     private final SessionFactory sessionFactory = Util.getSessionFactory();
+    private Transaction transaction = null;
     private final String table = "my_users";
     private final String CLEAN_USERS_FROM_TABLE = String.format("DELETE FROM %s ;", table);
 
@@ -22,18 +22,20 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
-
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+//            session.createQuery(" User");
+//            session.update();
+            transaction.commit();
+            System.out.println("Create clean");
+        }
     }
 
     @Override
     public void dropUsersTable() {
-        Transaction transaction;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-//            session.getCriteriaBuilder();
-            session.createNativeQuery("drop table my_db.my_users", User.class).executeUpdate();
-//            session.createQuery("drop from User").executeUpdate();
-           Query query = session.createQuery(":drop table my_users");
+            session.createNativeQuery("drop table my_db.user").executeUpdate();
             transaction.commit();
             System.out.println("Table drop");
         }
@@ -41,7 +43,6 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
-        Transaction transaction = null;
         User user = new User();
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
@@ -50,7 +51,7 @@ public class UserDaoHibernateImpl implements UserDao {
             user.setAge(age);
             session.save(user);
             transaction.commit();
-            System.out.println("User with name: " + user.getName());
+            System.out.println("User with name: " + user.getName() + " add to table");
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -60,30 +61,39 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void removeUserById(long id) {
-
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.getTransaction();
+            User user = session.load(User.class, id);
+            session.delete(user);
+            transaction.commit();
+            System.out.println("Remove by id: " + id);
+        } catch (Exception e) {
+            System.out.println("Remove by id not done!!!");
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
     }
 
     @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
-        Transaction transaction = null;
-        User user = new User();
         try (Session session = sessionFactory.openSession();) {
             transaction = session.beginTransaction();
-
-//            session.get;
+            Query<User> query = session.createQuery("from User");
+            users = query.list();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
         }
-        return null;
+        return users;
     }
 
     @Override
     public void cleanUsersTable() {
-        Transaction transaction;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             session.createQuery("delete from User").executeUpdate();
