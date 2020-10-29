@@ -21,22 +21,25 @@ public class Main {
                 .forEach(System.out::println);
         daoJDBC.cleanUsersTable();
         daoJDBC.dropUsersTable();*/
-
-//        SessionFactory factory = HibernateUtil.getSessionFactory();
         UserDaoHibernateImpl userDaoHibernate = new UserDaoHibernateImpl();
 //        userDaoHibernate.cleanUsersTable();
+        userDaoHibernate.createUsersTable();
         userDaoHibernate.saveUser("Max", "Suhov", Byte.parseByte("38"));
         userDaoHibernate.saveUser("Serge", "Kohn", Byte.parseByte("26"));
         userDaoHibernate.saveUser("Vladislav", "Dud", Byte.parseByte("4"));
         userDaoHibernate.saveUser("Semen", "Robinovich", Byte.parseByte("111"));
 //        userDaoHibernate.cleanUsersTable();
-//        userDaoHibernate.dropUsersTable();
-        userDaoHibernate.getAllUsers()
-                .forEach(System.out::println);
+        userDaoHibernate.dropUsersTable();
+//        userDaoHibernate.getAllUsers()
+//                .forEach(System.out::println);
         System.out.println();
-        userDaoHibernate.removeUserById(2);
+//        userDaoHibernate.removeUserById(2);
         System.out.println();
-        userDaoHibernate.getAllUsers()
-                .forEach(System.out::println);
+        try {
+            userDaoHibernate.getAllUsers()
+                    .forEach(System.out::println);
+        } catch (Exception e) {
+
+        }
     }
 }

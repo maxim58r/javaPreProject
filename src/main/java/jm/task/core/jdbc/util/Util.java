@@ -13,11 +13,11 @@ public class Util {
     private static final String DB_NAME = "my_db";
     private static final String USERNAME = "max";
     private static final String PASSWORD = "serov";
-    private static final String HBM2DDL = "create-drop";
+//    private static final String HBM2DDL = "create-drop";
 //    private static final String HBM2DDL = "update";
 //    private static final String HBM2DDL = "drop";
 //    private static final String HBM2DDL = "validate ";
-//    private static final String HBM2DDL = "none ";
+    private static final String HBM2DDL = "none ";
 
 
     public static Connection getConnection() {
