@@ -13,7 +13,6 @@ public class UserDaoHibernateImpl implements UserDao {
     private Transaction transaction = null;
 
     public UserDaoHibernateImpl() {
-
     }
 
     @Override
@@ -60,7 +59,7 @@ public class UserDaoHibernateImpl implements UserDao {
         User user = new User();
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            session.save(new User(name,lastName,age));
+            session.save(new User(name, lastName, age));
             transaction.commit();
             System.out.println("User with name: " + user.getName() + " add to table");
         } catch (Exception e) {
